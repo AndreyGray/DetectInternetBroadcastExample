@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements ReceiverCallback{
     public void clickCounter(View view) {
         Toast.makeText(this, "Count = " + ++count, Toast.LENGTH_SHORT).show();
     }
-    
+
 
     // Method to change the text status
     public void changeUI(boolean isConnected) {
