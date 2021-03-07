@@ -4,5 +4,6 @@
 <!--    Connection message-->
     <string name="no_internet">Internet disconnected</string>
     <string name="yes_internet">Internet connected</string>
+    <string name="counter">Counter</string>
 
 </resources>

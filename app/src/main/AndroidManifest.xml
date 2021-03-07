@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dron.detectinternetbroadcastexample">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -23,8 +23,7 @@
             </intent-filter>
         </activity>
 
-        <receiver
-            android:name=".InternetConnectorReceiver">
+        <receiver android:name=".InternetConnectorReceiver">
             <intent-filter>
 
                 <!-- Intent filters for broadcast receiver -->

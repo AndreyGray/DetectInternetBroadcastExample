@@ -7,12 +7,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class InternetConnectorReceiver extends BroadcastReceiver {
-    public InternetConnectorReceiver() {
+    ReceiverCallback mReceiverCallback;
+//    public InternetConnectorReceiver() {
+//    }
+    public InternetConnectorReceiver(ReceiverCallback receiverCallback) {
+        mReceiverCallback = receiverCallback;
     }
-
     @Override
     public void onReceive(Context context, Intent intent) {
-
         try {
             // Check if activity is visible or not
             boolean isVisible = App.isActivityVisible();
@@ -20,15 +22,14 @@ public class InternetConnectorReceiver extends BroadcastReceiver {
             if (isVisible) {
                 ConnectivityManager connectivityManager = (ConnectivityManager) context
                         .getSystemService(Context.CONNECTIVITY_SERVICE);
-                NetworkInfo networkInfo = connectivityManager
-                        .getActiveNetworkInfo();
-
-                // Check internet connection and according to state change the
-                // text of activity by calling method
+                NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+                // Check internet connection and according to state change the text of activity by calling method
                 if (networkInfo != null && networkInfo.isConnected()) {
-                    MainActivity.getInstance().changeUI(true);
+                    mReceiverCallback.changeUI(true);
+                    //MainActivity.getInstance().changeUI(true);
                 } else {
-                   MainActivity.getInstance().changeUI(false);
+                    mReceiverCallback.changeUI(false);
+                   //MainActivity.getInstance().changeUI(false);
                 }
            }
         } catch (Exception e) {
