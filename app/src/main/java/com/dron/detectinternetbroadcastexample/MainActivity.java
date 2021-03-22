@@ -1,12 +1,13 @@
 package com.dron.detectinternetbroadcastexample;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import android.content.BroadcastReceiver;
+import android.content.DialogInterface;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements ReceiverCallback{
+
+    private static final String MY_SETTINGS = "settings";
+    private static final String COUNTER ="counter" ;
 
     TextView internetStatus;
     Button counter;//кнопа
@@ -29,6 +33,19 @@ public class MainActivity extends AppCompatActivity implements ReceiverCallback{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //check count state
+        if(savedInstanceState!=null){
+            count = savedInstanceState.getInt(PUT_KEY_COUNT);
+        }else {
+            count = getCountFromShared();
+        }
+
+        // if this is the first initialization then show the dialog
+        if (isFirstInitShared()){
+            showHelloFirstDialog();
+        }
+
         //Init our views
         initView();
         // Init and register BroadcastReceiver with callback
@@ -36,20 +53,79 @@ public class MainActivity extends AppCompatActivity implements ReceiverCallback{
         registerReceiver(receiver,new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION));
     }
 
-    //Method to init the views
+    /**
+     * get count value from SharedPreferences
+     * @return counter
+     */
+
+    private int getCountFromShared() {
+        SharedPreferences sp = getSharedPreferences(MY_SETTINGS,MODE_PRIVATE);
+
+        return sp.getInt(COUNTER,0);
+    }
+
+    /**
+     * set count value from SharedPreferences
+     */
+
+    private void setCountFromShared() {
+        SharedPreferences sp = getSharedPreferences(MY_SETTINGS,MODE_PRIVATE);
+        SharedPreferences.Editor e = sp.edit();
+        e.putInt(COUNTER, count);
+        e.apply();
+
+    }
+
+    /**
+     * show dialog with AlertDialog
+     */
+    private void showHelloFirstDialog() {
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setTitle(R.string.dialog_title)
+                .setMessage(R.string.dialog_message)
+
+                .setPositiveButton(R.string.ok, null)
+                .show();
+    }
+
+    /**
+     * check is the first launch of the application with uses SharedPreferences
+     */
+    private boolean isFirstInitShared() {
+        SharedPreferences sp = getSharedPreferences(MY_SETTINGS, MODE_PRIVATE);
+        boolean hasVisited = sp.getBoolean("hasVisited", false);
+
+        if (!hasVisited) {
+            SharedPreferences.Editor e = sp.edit();
+            e.putBoolean("hasVisited", true);
+            e.apply(); // applying changes
+        }
+        return !hasVisited;
+    }
+
+    /**
+     * Method to init the views
+     */
+
     private void initView() {
         internetStatus = findViewById(R.id.text_connection);
         counter = findViewById(R.id.counter);
         parentContainer = findViewById(R.id.main_container);
     }
 
-    //called when button will pressed
+    /**
+     * called when button will pressed
+     * @param view
+     */
     public void clickCounter(View view) {
-        Toast.makeText(this, "Count = " + ++count, Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, "Count = " + ++count, Toast.LENGTH_SHORT).show();
     }
 
 
-    // Method to change the text status
+    /**
+     * Method to change the text and toast and change background
+     */
     public void changeUI(boolean isConnected) {
         // Change status according to boolean value
         MainActivity.this.runOnUiThread(() -> {
@@ -64,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements ReceiverCallback{
             }
         });
     }
+
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -87,6 +164,13 @@ public class MainActivity extends AppCompatActivity implements ReceiverCallback{
     protected void onPause() {
         super.onPause();
         App.activityPaused();// On Pause notify the Application
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        //save count state to SharedPreferences
+        setCountFromShared();
     }
 
     @Override

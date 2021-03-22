@@ -7,12 +7,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 public class InternetConnectorReceiver extends BroadcastReceiver {
+
     ReceiverCallback mReceiverCallback;
 //    public InternetConnectorReceiver() {
 //    }
+
     public InternetConnectorReceiver(ReceiverCallback receiverCallback) {
         mReceiverCallback = receiverCallback;
     }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         try {

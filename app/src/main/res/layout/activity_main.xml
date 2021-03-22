@@ -19,17 +19,28 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text = "Connection message"/>
 
+    <ImageView
+        android:id="@+id/image_attach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline"
+        app:layout_constraintBottom_toBottomOf="@+id/counter"
+        app:layout_constraintEnd_toStartOf="@+id/counter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/counter"
+        android:contentDescription="@string/image_attach" />
+
     <Button
         android:id="@+id/counter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="clickCounter"
+        android:text="@string/counter"
         android:textSize="24sp"
         android:textStyle="italic|bold"
-        android:text="@string/counter"
-        android:onClick="clickCounter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/text_connection"
+        app:layout_constraintStart_toStartOf="@+id/text_connection"
         app:layout_constraintTop_toBottomOf="@+id/text_connection" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
