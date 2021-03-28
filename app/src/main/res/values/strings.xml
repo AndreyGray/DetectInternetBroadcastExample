@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">DetectInternetBroadcastExample</string>
 
-<!--    Connection message-->
+    <!--    Connection message-->
     <string name="no_internet">Internet disconnected</string>
     <string name="yes_internet">Internet connected</string>
     <string name="counter">Counter</string>
@@ -10,5 +10,7 @@
     <string name="dialog_title">Welcome to our interesting app</string>
     <string name="dialog_message">Congratulations on making the right choice by installing our application. We will be glad if you like it and you will rate it by awarding the highest score.</string>
     <string name="ok">OK</string>
+    <string name="parse_xml">Parse XML</string>
+    <string name="age">Age: </string>
 
 </resources>

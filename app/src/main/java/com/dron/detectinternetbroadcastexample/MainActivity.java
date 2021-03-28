@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -182,5 +183,15 @@ public class MainActivity extends AppCompatActivity implements ReceiverCallback{
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * onClick for direction to UsersActivity
+     * @param view
+     */
+
+    public void clickXml(View view) {
+        Intent toUsersActivity = new Intent(MainActivity.this,UsersActivity.class);
+        startActivity(toUsersActivity);
     }
 }

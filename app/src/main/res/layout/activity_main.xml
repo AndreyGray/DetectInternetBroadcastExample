@@ -42,5 +42,17 @@
         app:layout_constraintEnd_toEndOf="@+id/text_connection"
         app:layout_constraintStart_toStartOf="@+id/text_connection"
         app:layout_constraintTop_toBottomOf="@+id/text_connection" />
+    <Button
+        android:id="@+id/xml_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="clickXml"
+        android:text="@string/parse_xml"
+        android:textSize="24sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/text_connection"
+        app:layout_constraintEnd_toEndOf="@+id/text_connection"
+        app:layout_constraintStart_toStartOf="@+id/text_connection"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
